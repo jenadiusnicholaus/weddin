@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:weddin/Screens/michango.dart';
 import 'package:weddin/Screens/weddings.dart';
 import 'package:weddin/utils/utils.dart';
 
@@ -43,12 +42,10 @@ class _MyHomePageState extends State<MyHomePage>
   List<Widget> _tablist = [
     Tab(text: "Weddings"),
     Tab(text: "Inbox"),
-    Tab(text: "Calls"),
   ];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // Create TabController for getting the index of current tab
     _controller = TabController(length: _tablist.length, vsync: this);
@@ -61,7 +58,24 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  _switchBtnTabs() {}
+  _switchBtnTabs(cxt) async {
+    switch (_controller.index) {
+      case 0:
+        print('Show bottom sheet');
+        break;
+      case 1:
+        print('tab2');
+        break;
+      case 2:
+        print('tab3');
+        break;
+      case 3:
+        print('tab3');
+        break;
+
+      default:
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +98,14 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(controller: _controller, children: [
         Weddings(),
         Center(child: Text(_selectedIndex.toString())),
-        Center(child: Text(_selectedIndex.toString())),
       ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: _switchBtnTabs,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+          onPressed: () => _switchBtnTabs(context),
+          tooltip: _selectedIndex == 0 ? 'dcreate wedding group' : 'others',
+          child: _selectedIndex == 0
+              ? const Icon(Icons.add)
+              : Icon(Icons
+                  .inbox)), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

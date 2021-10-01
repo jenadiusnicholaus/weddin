@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weddin/Screens/plage_info.dart';
 import 'package:weddin/modals/weddings.dart';
 import 'package:weddin/utils/utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Michango extends StatefulWidget {
   final Weddings weddings;
@@ -14,17 +14,130 @@ class Michango extends StatefulWidget {
 }
 
 class _MichangoState extends State<Michango> {
+  Widget _buildEmail(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        // labelText: 'Email',
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+          borderRadius: BorderRadius.all(
+            Radius.circular(25),
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
+          borderRadius: BorderRadius.all(
+            Radius.circular(25),
+          ),
+        ),
+        prefixIcon: const Icon(Icons.enhanced_encryption),
+        hintText: "Email",
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
+      validator: (value) {
+        if (value == null) {
+          return "Username is required";
+        } else if (value.length <= 5) {
+          return "Username should be greater than 5";
+        } else {
+          return null;
+        }
+      },
+      onSaved: (value) {
+        // _email = value;
+      },
+    );
+  }
+
+  _changa(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo),
+                title: const TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Enter amount to plage',
+                      border: OutlineInputBorder()),
+                  keyboardType: TextInputType.number,
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: new Icon(Icons.music_note),
+                title: new Text('Music'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: new Icon(Icons.videocam),
+                title: new Text('Video'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: new Icon(Icons.share),
+                title: new Text('Share'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  _showPopupMenu() async {
+    await showMenu(
+      context: context,
+      position: const RelativeRect.fromLTRB(700, 80, 2, 100),
+      items: [
+        const PopupMenuItem(
+          value: 1,
+          child: Text("Group info"),
+        ),
+        const PopupMenuItem(
+          value: 2,
+          child: Text("Setting"),
+        ),
+        PopupMenuItem(
+          value: 3,
+          child: InkWell(
+              onTap: () => Utility.goTo(context, PlageInfo()),
+              child: Text("plage info")),
+        ),
+      ],
+      elevation: 8.0,
+    ).then((value) {
+// NOTE: even you didnt select item this method will be called with null of value so you should call your call back with checking if value is not null
+
+      if (value != null) print(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.weddings.name),
+        actions: [
+          IconButton(
+            onPressed: () async => await _showPopupMenu(),
+            icon: const Icon(Icons.more_horiz),
+          )
+        ],
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Container(
-              height: 800,
+              height: 600,
               child: ListView.builder(
                   itemCount: widget.mchango.length,
                   itemBuilder: (cxt, int index) {
@@ -111,17 +224,48 @@ class _MichangoState extends State<Michango> {
                   }),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Container(
-              height: 100,
-              color: Utility.primaryColor,
-            ),
-          )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                    title: const Text("Weka mchnago wako hapa",
+                        style: Utility.titlesStyle),
+                    content: const TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Eg: 2000000',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      TextButton(
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onPressed: () {
+                          print('Cancel');
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text("Submit"),
+                        onPressed: () {
+                          print('submt the plage');
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
+          tooltip: 'plage',
+          child: const Text('plage')),
     );
   }
 }

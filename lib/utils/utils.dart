@@ -17,10 +17,10 @@ class Utility {
 
   static MaterialColor colorCustom = MaterialColor(0xFF880E4F, color);
   static const primaryColor = Color(0xFFFFEBEE);
-  static const titlsColor = Colors.pink;
+  static const titlesColor = Colors.pink;
   static const descsColor = Colors.grey;
-  static const titlesStyle =
-      TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500, color: titlsColor);
+  static const titlesStyle = TextStyle(
+      fontSize: 17.0, fontWeight: FontWeight.w500, color: titlesColor);
   static const descStyle =
       TextStyle(fontWeight: FontWeight.w700, color: descsColor);
 
