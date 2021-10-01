@@ -31,7 +31,7 @@ class _PlageInfoState extends State<PlageInfo> {
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Main info',
-                    style: Utility.titlesStyle,
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Card(
@@ -49,7 +49,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],
@@ -70,7 +69,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],
@@ -91,7 +89,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],
@@ -101,7 +98,7 @@ class _PlageInfoState extends State<PlageInfo> {
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Other info',
-                    style: Utility.titlesStyle,
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Card(
@@ -119,7 +116,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],
@@ -140,7 +136,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],
@@ -161,7 +156,6 @@ class _PlageInfoState extends State<PlageInfo> {
                             leading: Icon(Icons.label),
                             trailing: Text(
                               '90',
-                              style: Utility.titlesStyle,
                             ),
                           ),
                         ],

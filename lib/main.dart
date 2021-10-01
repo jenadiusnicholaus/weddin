@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:weddin/Screens/weddings.dart';
 import 'package:weddin/utils/utils.dart';
+import 'package:weddin/widget/theming.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'weddIn',
-      theme: ThemeData(
-        primarySwatch: Utility.colorCustom,
-      ),
+      theme: buildShrineTheme(),
+      darkTheme: ThemeData.dark(), // Provide dark theme
+
       home: MyHomePage(title: 'WeddIn'),
     );
   }

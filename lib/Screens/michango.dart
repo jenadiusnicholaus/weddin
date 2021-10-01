@@ -14,85 +14,6 @@ class Michango extends StatefulWidget {
 }
 
 class _MichangoState extends State<Michango> {
-  Widget _buildEmail(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        // labelText: 'Email',
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.all(
-            Radius.circular(25),
-          ),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
-          borderRadius: BorderRadius.all(
-            Radius.circular(25),
-          ),
-        ),
-        prefixIcon: const Icon(Icons.enhanced_encryption),
-        hintText: "Email",
-        filled: true,
-        fillColor: Colors.grey[200],
-      ),
-      validator: (value) {
-        if (value == null) {
-          return "Username is required";
-        } else if (value.length <= 5) {
-          return "Username should be greater than 5";
-        } else {
-          return null;
-        }
-      },
-      onSaved: (value) {
-        // _email = value;
-      },
-    );
-  }
-
-  _changa(BuildContext context) {
-    return showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: const Icon(Icons.photo),
-                title: const TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Enter amount to plage',
-                      border: OutlineInputBorder()),
-                  keyboardType: TextInputType.number,
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: new Icon(Icons.music_note),
-                title: new Text('Music'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: new Icon(Icons.videocam),
-                title: new Text('Video'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: new Icon(Icons.share),
-                title: new Text('Share'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
-  }
-
   _showPopupMenu() async {
     await showMenu(
       context: context,
@@ -157,7 +78,8 @@ class _MichangoState extends State<Michango> {
                                 children: [
                                   Text(
                                     "${mich.name} :",
-                                    style: Utility.titlesStyle,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),

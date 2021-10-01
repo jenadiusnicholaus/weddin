@@ -48,7 +48,7 @@ class _WeddingsState extends State<Weddings> {
                       children: [
                         Text(
                           myweddings.name.toUpperCase(),
-                          style: Utility.titlesStyle,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           "Michango : ${myweddings.michango.length.toString()}",

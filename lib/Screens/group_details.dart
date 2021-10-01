@@ -52,7 +52,6 @@ class _GroupInfoState extends State<GroupInfo> {
                           leading: Icon(Icons.description),
                           trailing: Text(
                             '90',
-                            style: Utility.titlesStyle,
                           ),
                         ),
                       ],
@@ -123,7 +122,6 @@ class _GroupInfoState extends State<GroupInfo> {
                           leading: Icon(Icons.label),
                           trailing: Text(
                             '90',
-                            style: Utility.titlesStyle,
                           ),
                         ),
                       ],
@@ -144,7 +142,6 @@ class _GroupInfoState extends State<GroupInfo> {
                           leading: Icon(Icons.label),
                           trailing: Text(
                             '90',
-                            style: Utility.titlesStyle,
                           ),
                         ),
                       ],
