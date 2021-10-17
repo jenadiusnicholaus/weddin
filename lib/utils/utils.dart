@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 
 class Utility {
   static Map<int, Color> color = {
@@ -34,5 +35,19 @@ class Utility {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  static Widget avatar(Contact? contact, index,
+      [double radius = 20.0, IconData defaultIcon = Icons.person]) {
+    if (contact!.photoOrThumbnail != null) {
+      return CircleAvatar(
+        // backgroundImage: MemoryImage(contact.photoOrThumbnail),
+        radius: radius,
+      );
+    }
+    return CircleAvatar(
+      radius: radius,
+      child: Icon(defaultIcon),
+    );
   }
 }

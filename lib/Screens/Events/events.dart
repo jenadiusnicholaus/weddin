@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:weddin/Screens/group_details.dart';
-import 'package:weddin/Screens/michango.dart';
+import 'package:weddin/Screens/event_details.dart';
+import 'package:weddin/Screens/contributors.dart';
 import 'package:weddin/main.dart';
 import 'package:weddin/modals/weddings.dart';
 import 'package:weddin/utils/utils.dart';
 
-class Weddings extends StatefulWidget {
-  const Weddings({Key? key}) : super(key: key);
+class Events extends StatefulWidget {
+  const Events({Key? key}) : super(key: key);
 
   @override
   _WeddingsState createState() => _WeddingsState();
 }
 
-class _WeddingsState extends State<Weddings> {
+class _WeddingsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

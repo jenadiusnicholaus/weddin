@@ -1,4 +1,4 @@
-import 'package:weddin/Screens/michango.dart';
+import 'package:weddin/Screens/contributors.dart';
 
 class Weddings {
   final int id;

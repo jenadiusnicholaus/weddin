@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weddin/Screens/plage_info.dart';
+import 'package:weddin/Screens/contribution_info.dart';
 import 'package:weddin/modals/weddings.dart';
 import 'package:weddin/utils/utils.dart';
 
