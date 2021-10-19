@@ -8,9 +8,9 @@ class CreateEventNext extends StatefulWidget {
 }
 
 class _CreateEventNextState extends State<CreateEventNext> {
-  String? selectedLocation = 'Weeding';
+  String? selectedEventCategory = 'Wedding';
   final List<String>? _locations = [
-    'Weeding',
+    'Wedding',
     'Birth day',
     'Anversary',
     'Graduation'
@@ -23,7 +23,7 @@ class _CreateEventNextState extends State<CreateEventNext> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 800,
+          height: 600,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +64,14 @@ class _CreateEventNextState extends State<CreateEventNext> {
                 child: DropdownButton<String>(
                   hint: const Text('Select Event Category'),
                   isExpanded: true,
-                  value: selectedLocation,
+                  value: selectedEventCategory,
                   icon: const Icon(Icons.arrow_circle_down),
                   iconSize: 20,
                   elevation: 1,
                   underline: Container(),
                   onChanged: (newValue) {
                     setState(() {
-                      selectedLocation = newValue;
+                      selectedEventCategory = newValue;
                     });
                   },
                   items: List.generate(
@@ -86,9 +86,79 @@ class _CreateEventNextState extends State<CreateEventNext> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              selectedEventCategory == 'Wedding'
+                  ? Column(
+                      children: [
+                        const Text(
+                            'For Weeding Category you may need to specifiey what is \'Single\'  and \'Double\'  cart will be'),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          height: 80,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text('Single'),
+                                      TextField(
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          hintText: 'Eg: 50000',
+                                          prefixIcon: Icon(
+                                              Icons.event_available_outlined),
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text('Double'),
+                                      TextField(
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          hintText: 'Eg: 100000',
+                                          prefixIcon: Icon(
+                                              Icons.event_available_outlined),
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : const Text('')
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.arrow_right),
       ),
     );
   }

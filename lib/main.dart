@@ -1,15 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:weddin/Screens/Events/create_event.dart';
 import 'package:weddin/Screens/Events/create_event_page2.dart';
 import 'package:weddin/Screens/Events/events.dart';
+import 'package:weddin/Screens/contact_list.dart';
 import 'package:weddin/Screens/contact_page.dart';
+import 'package:weddin/Screens/register.dart';
 import 'package:weddin/Screens/setteing.dart';
 
 import 'package:weddin/utils/utils.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 
 void main() async {
+  String token = '';
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   runApp(MyApp(savedThemeMode: savedThemeMode));
@@ -17,7 +19,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final dynamic savedThemeMode;
-  const MyApp({Key? key, this.savedThemeMode}) : super(key: key);
+  final String? token;
+  const MyApp({Key? key, this.savedThemeMode, this.token}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -39,9 +42,11 @@ class MyApp extends StatelessWidget {
         title: 'Adaptive Theme Demo',
         theme: theme,
         darkTheme: darkTheme,
-        home: MyHomePage(
-          title: 'entlife',
-        ),
+        home: token == null
+            ? Register()
+            : MyHomePage(
+                title: 'entlife',
+              ),
 
         // initialRoute: '/contactList',
         routes: {
@@ -71,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage>
   // ignore: prefer_final_fields
   List<Widget> _tablist = [
     Tab(text: "Events"),
-    Tab(text: "need"),
+    Tab(text: "Looking for"),
     Tab(text: "Inbox"),
   ];
 
@@ -92,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage>
   _switchBtnTabs(cxt) async {
     switch (_controller.index) {
       case 0:
-        Utility.goTo(cxt, CreateEvent());
+        Utility.goTo(cxt, ContactListPage());
         break;
       case 1:
         print('tab2');
@@ -108,10 +113,10 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  _showPopupMenu(context) async {
-    return await showMenu(
+  _showPopupMenu(context) {
+    return showMenu(
       context: context,
-      position: const RelativeRect.fromLTRB(700, 80, 2, 100),
+      position: const RelativeRect.fromLTRB(700, 0, 2, 300),
       items: [
         const PopupMenuItem(
           value: 1,
@@ -170,12 +175,10 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _switchBtnTabs(context),
-          tooltip: _selectedIndex == 0 ? 'create wedding group' : 'others',
-          child: _selectedIndex == 0
-              ? const Icon(Icons.add)
-              : Icon(Icons
-                  .inbox)), // This trailing comma makes auto-formatting nicer for build methods.
+        onPressed: () => _switchBtnTabs(context),
+        tooltip: _selectedIndex == 0 ? 'create wedding group' : 'others',
+        child: _selectedIndex == 0 ? const Icon(Icons.add) : Icon(Icons.inbox),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

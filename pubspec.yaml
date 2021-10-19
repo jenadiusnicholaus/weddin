@@ -42,6 +42,12 @@ dependencies:
   adaptive_theme: ^2.3.0
   flutter_contacts: ^1.1.1+2
   pretty_json: ^2.0.0
+  shared_preferences: ^2.0.8
+  grouped_list: ^4.1.0
+  intl_phone_number_input: ^0.7.0+2
+  mobile_number: ^1.0.4
+
+
 
 
 dev_dependencies:

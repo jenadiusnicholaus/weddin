@@ -4,26 +4,26 @@ import 'package:weddin/utils/utils.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 
-class GroupInfo extends StatefulWidget {
+class EventgroupInfo extends StatefulWidget {
   final dynamic wedding;
 
-  const GroupInfo({Key? key, required this.wedding}) : super(key: key);
+  const EventgroupInfo({Key? key, required this.wedding}) : super(key: key);
 
   @override
   _GroupInfoState createState() => _GroupInfoState();
 }
 
-class _GroupInfoState extends State<GroupInfo> {
+class _GroupInfoState extends State<EventgroupInfo> {
   bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.wedding.name),
+        title: InkWell(onTap: () => {}, child: Text(widget.wedding.name)),
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: 700,
           child: Column(
             children: [

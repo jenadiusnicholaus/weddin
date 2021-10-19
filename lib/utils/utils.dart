@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Utility {
   static Map<int, Color> color = {
@@ -47,7 +50,30 @@ class Utility {
     }
     return CircleAvatar(
       radius: radius,
-      child: Icon(defaultIcon),
+      child: Text('${contact.displayName.toString().substring(0, 1)}'),
     );
+  }
+
+  static saveEventMemberToprefs({dynamic list, String? key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString(key!, jsonEncode(list));
+    final myStringList = prefs.getString(key) ?? [];
+    print('EventMember saved => ${myStringList}');
+  }
+
+  static saveUserPhoneNumber({dynamic value, String? key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString(key!, value);
+    final myStringList = prefs.getString(key) ?? [];
+    print(' saved => ${myStringList}');
+  }
+
+  static getFromPrefs({key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final myStringList = prefs.getString(key) ?? [];
+    return myStringList;
   }
 }

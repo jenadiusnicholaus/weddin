@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weddin/Screens/contribution_info.dart';
+import 'package:weddin/Screens/event_details.dart';
 import 'package:weddin/modals/weddings.dart';
 import 'package:weddin/utils/utils.dart';
 
@@ -46,7 +47,10 @@ class _MichangoState extends State<Michango> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.weddings.name),
+        title: InkWell(
+            onTap: () =>
+                Utility.goTo(context, EventgroupInfo(wedding: widget.weddings)),
+            child: Text(widget.weddings.name)),
         actions: [
           IconButton(
             onPressed: () async => await _showPopupMenu(),

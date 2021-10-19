@@ -23,40 +23,21 @@ class _WeddingsState extends State<Events> {
             itemCount: weddings.length,
             itemBuilder: (cxt, int index) {
               var myweddings = weddings[index];
-              return Card(
-                child: ListTile(
-                  onTap: () => Utility.goTo(
-                      context,
-                      Michango(
-                        mchango: myweddings.michango,
-                        weddings: myweddings,
-                      )),
-                  title: Row(children: [
-                    InkWell(
-                      onTap: () =>
-                          Utility.goTo(context, GroupInfo(wedding: myweddings)),
-                      child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: AssetImage(myweddings.imageUrl),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          myweddings.name.toUpperCase(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Michango : ${myweddings.michango.length.toString()}",
-                        ),
-                      ],
-                    )
-                  ]),
+              return ListTile(
+                onTap: () => Utility.goTo(
+                    context,
+                    Michango(
+                      mchango: myweddings.michango,
+                      weddings: myweddings,
+                    )),
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(myweddings.imageUrl),
                 ),
+                title: Text(
+                  myweddings.name.toUpperCase(),
+                ),
+                subtitle: const Text('Event Description'),
+                trailing: const Text(' 78 forks'),
               );
             }),
       ),

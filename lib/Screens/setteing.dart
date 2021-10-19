@@ -23,14 +23,6 @@ class _SettingState extends State<Setting> {
           height: 500,
           child: Column(
             children: [
-              // Container(
-              //   height: 300,
-              //   decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //           fit: BoxFit.fill,
-              //           image: AssetImage(widget.wedding.imageUrl))),
-              //   width: double.infinity,
-              // ),
               Card(
                 elevation: 1,
                 child: Container(
@@ -47,7 +39,7 @@ class _SettingState extends State<Setting> {
                               ' This group is made to accomplish jinadius'),
                           leading: Icon(Icons.security_outlined),
                           trailing: Text(
-                            '90',
+                            '',
                           ),
                         ),
                       ],
@@ -87,6 +79,8 @@ class _SettingState extends State<Setting> {
                               ),
                               FlutterSwitch(
                                 // showOnOff: true,
+                                height: 30,
+                                width: 60,
                                 activeIcon: const Icon(
                                   Icons.nightlight,
                                   color: Colors.black,
@@ -129,7 +123,7 @@ class _SettingState extends State<Setting> {
                           title: Text('My account'),
                           leading: Icon(Icons.account_box_outlined),
                           trailing: Text(
-                            '90',
+                            '',
                           ),
                         ),
                       ],
