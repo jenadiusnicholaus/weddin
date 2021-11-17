@@ -46,6 +46,8 @@ dependencies:
   grouped_list: ^4.1.0
   intl_phone_number_input: ^0.7.0+2
   mobile_number: ^1.0.4
+  uuid: 3.0.5
+  badges: ^2.0.1
 
 
 

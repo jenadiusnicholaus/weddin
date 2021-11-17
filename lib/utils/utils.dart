@@ -54,6 +54,7 @@ class Utility {
     );
   }
 
+// for only member
   static saveEventMemberToprefs({dynamic list, String? key}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -62,18 +63,62 @@ class Utility {
     print('EventMember saved => ${myStringList}');
   }
 
-  static saveUserPhoneNumber({dynamic value, String? key}) async {
+  static getEventMemberfromPrefs(key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString(key!, value);
-    final myStringList = prefs.getString(key) ?? [];
-    print(' saved => ${myStringList}');
+    final memberList = prefs.getString(key) ?? [];
+    return memberList;
   }
 
-  static getFromPrefs({key}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  // static saveUserPhoneNumber({dynamic value, String? key}) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final myStringList = prefs.getString(key) ?? [];
-    return myStringList;
+  //   await prefs.setString(key!, value);
+  //   final myStringList = prefs.getString(key) ?? '';
+  //   print(' saved => ${myStringList}');
+  // }
+
+  static saveOnShared({String? key, String? value}) async {
+    print("Save on Shared Preferences: '$key' -> $value");
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    shared.setString(key!, value!);
+  }
+
+  static getFromShared(String? key) async {
+    SharedPreferences? shared = await SharedPreferences?.getInstance();
+    String? keyword = shared.getString(key!);
+    return keyword;
+  }
+
+  static getOutFromShared(String key) async {
+    SharedPreferences? shared = await SharedPreferences.getInstance();
+    shared.remove(key);
+  }
+
+  static Future<String> getUsername() async {
+    return await getFromShared("username");
+  }
+
+  static Future<String> getEmail() async {
+    return await getFromShared("email");
+  }
+
+  static Future<String> getToken() async {
+    return await getFromShared('token');
+  }
+
+  static Future<String> getGroupId() async {
+    return await getFromShared('groupid');
+  }
+
+  static Future<String> getGroupName() async {
+    return await getFromShared('groupname');
+  }
+
+  static Future<String> getGroupDesc() async {
+    return await getFromShared('groupdesc');
+  }
+
+  static Future<String> getGroupCategory() async {
+    return await getFromShared('groupcategory');
   }
 }

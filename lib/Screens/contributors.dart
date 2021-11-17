@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:weddin/Screens/contribution_info.dart';
 import 'package:weddin/Screens/event_details.dart';
-import 'package:weddin/modals/weddings.dart';
-import 'package:weddin/utils/utils.dart';
 
-class Michango extends StatefulWidget {
-  final Weddings weddings;
-  final List<User> mchango;
-  const Michango({Key? key, required this.mchango, required this.weddings})
-      : super(key: key);
+import 'package:weddin/modals/event_groups.dart';
+import 'package:weddin/utils/utils.dart';
+import 'package:badges/badges.dart';
+
+class Contributor extends StatefulWidget {
+  final Eventgroup eventgroup;
+
+  const Contributor({Key? key, required this.eventgroup}) : super(key: key);
 
   @override
-  _MichangoState createState() => _MichangoState();
+  _ContributorState createState() => _ContributorState();
 }
 
-class _MichangoState extends State<Michango> {
+class _ContributorState extends State<Contributor> {
   _showPopupMenu() async {
     await showMenu(
       context: context,
@@ -48,9 +49,9 @@ class _MichangoState extends State<Michango> {
     return Scaffold(
       appBar: AppBar(
         title: InkWell(
-            onTap: () =>
-                Utility.goTo(context, EventgroupInfo(wedding: widget.weddings)),
-            child: Text(widget.weddings.name)),
+            onTap: () => Utility.goTo(
+                context, EventgroupInfo(eventgroup: widget.eventgroup)),
+            child: Text(widget.eventgroup.name!)),
         actions: [
           IconButton(
             onPressed: () async => await _showPopupMenu(),
@@ -64,15 +65,23 @@ class _MichangoState extends State<Michango> {
             child: Container(
               height: 600,
               child: ListView.builder(
-                  itemCount: widget.mchango.length,
+                  itemCount: widget.eventgroup.member!.length,
                   itemBuilder: (cxt, int index) {
-                    var mich = widget.mchango[index];
+                    var mich = widget.eventgroup.member![index];
                     return Card(
                       child: ExpansionTile(
-                        leading: CircleAvatar(
-                            child: Text(
-                          mich.name.substring(0, 1),
-                        )),
+                        textColor: Colors.grey,
+                        leading: Badge(
+                            position: BadgePosition.topEnd(top: 0, end: 2),
+                            elevation: 0,
+                            shape: BadgeShape.circle,
+                            badgeColor: Colors.green,
+                            borderSide: BorderSide(color: Colors.black),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.green,
+                              size: 30,
+                            )),
 
                         title: Row(children: [
                           Column(
@@ -94,50 +103,42 @@ class _MichangoState extends State<Michango> {
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              " ${mich.kiasi}",
+                            const Text(
+                              " ${"mich.amount"}",
                             ),
-                            if (mich.kamaliza)
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Icon(
-                                  Icons.check_circle,
-                                  color: Colors.green[900],
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: const [
+                                SizedBox(
+                                  width: 6,
                                 ),
-                              )
-                            else
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const SizedBox(
-                                    width: 6,
-                                  ),
-                                  Text('Baki :'),
-                                  const SizedBox(
-                                    width: 6,
-                                  ),
-                                  Text('${mich.baki}')
-                                ],
-                              )
+                                Text('Baki :'),
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Text('${"mich.remainedAmount"}')
+                              ],
+                            )
                           ],
                         ),
+
                         // ignore: prefer_const_literals_to_create_immutables
                         children: <Widget>[
                           ListTile(
+                            selectedTileColor: Colors.grey,
                             leading: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.message_rounded),
-                              color: Theme.of(context).primaryColor,
+                              // color: Theme.of(context).primaryColor,
                             ),
                             title: Center(
                               child: Text(
-                                "${mich.phone}",
+                                mich.phone!,
                                 style: Utility.descStyle,
                               ),
                             ),
                             trailing: IconButton(
-                              color: Theme.of(context).primaryColor,
+                              // color: Theme.of(context).primaryColor,
                               onPressed: () async =>
                                   await Utility.makePhoneCall(
                                       'tel:${mich.phone}'),

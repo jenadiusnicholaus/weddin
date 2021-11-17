@@ -21,10 +21,11 @@ class _RegisterState extends State<Register> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final TextEditingController controller = TextEditingController();
-  String initialCountry = 'US';
-  PhoneNumber number = PhoneNumber(isoCode: 'US');
+  String initialCountry = 'TZ';
+  PhoneNumber number = PhoneNumber(isoCode: 'TZ');
   String _mobileNumber = '';
   List<SimCard> _simCard = <SimCard>[];
+  String? userPhoneNumber;
 
   @override
   void initState() {
@@ -96,7 +97,7 @@ class _RegisterState extends State<Register> {
                     },
                     child: Text(
                       " is this your number ?  click on it to confirm ${_mobileNumber}",
-                      style: TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ),
                   const SizedBox(
@@ -104,7 +105,12 @@ class _RegisterState extends State<Register> {
                   ),
                   InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {
-                      print(number.phoneNumber);
+                      if (number.phoneNumber!.length >= 13) {
+                        print(number.phoneNumber);
+                        setState(() {
+                          userPhoneNumber = number.phoneNumber;
+                        });
+                      }
                     },
                     onInputValidated: (bool value) {
                       print(value);
@@ -122,18 +128,15 @@ class _RegisterState extends State<Register> {
                         signed: true, decimal: true),
                     inputBorder: const OutlineInputBorder(),
                     onSaved: (PhoneNumber number) async {
-                      print('On Saved: ${number.phoneNumber}');
+                      print('On Saved: $number');
                     },
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 30),
+                    margin: const EdgeInsets.symmetric(vertical: 30),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async => {
                         if (_validForm()) {_register()},
-                        print(await Utility.getFromPrefs(key: 'phone_number')),
-                        Utility.goTo(
-                            context, const MyHomePage(title: 'entlife'))
                       },
                       child: const Text('Next'),
                     ),
@@ -155,13 +158,15 @@ class _RegisterState extends State<Register> {
   }
 
   _register() async {
-    await Utility.saveUserPhoneNumber(
-        value: number.phoneNumber, key: 'phone_number');
+    print(userPhoneNumber);
+    // await Utility.getOutFromShared('token');
+    await Utility.saveOnShared(key: 'user_phoneNumber', value: userPhoneNumber);
+    await Utility.saveOnShared(key: 'token', value: 'xhjshjsyhs79380ddjkll');
   }
 
   void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'TZ');
 
     setState(() {
       this.number = number;

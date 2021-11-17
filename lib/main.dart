@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:weddin/Screens/Events/create_event_page2.dart';
 import 'package:weddin/Screens/Events/events.dart';
 import 'package:weddin/Screens/contact_list.dart';
 import 'package:weddin/Screens/contact_page.dart';
+import 'package:weddin/Screens/lookingfor.dart';
 import 'package:weddin/Screens/register.dart';
 import 'package:weddin/Screens/setteing.dart';
 
@@ -11,10 +13,14 @@ import 'package:weddin/utils/utils.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 
 void main() async {
-  String token = '';
   WidgetsFlutterBinding.ensureInitialized();
+  // String? token = await Utility?.getToken();
+  String? token = '';
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
-  runApp(MyApp(savedThemeMode: savedThemeMode));
+  runApp(MyApp(
+    savedThemeMode: savedThemeMode,
+    token: token,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -75,9 +81,53 @@ class _MyHomePageState extends State<MyHomePage>
   int _selectedIndex = 0;
   // ignore: prefer_final_fields
   List<Widget> _tablist = [
-    Tab(text: "Events"),
-    Tab(text: "Looking for"),
-    Tab(text: "Inbox"),
+    Tab(
+      icon: Badge(
+        shape: BadgeShape.circle,
+        position: BadgePosition.topEnd(top: -12, end: -20),
+        padding: EdgeInsets.all(5),
+        badgeContent: Text(
+          '100',
+          style: TextStyle(
+              color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+        child: Text(
+          'Events',
+        ),
+      ),
+    ),
+    Tab(
+      icon: Badge(
+        shape: BadgeShape.circle,
+        borderRadius: BorderRadius.circular(100),
+        position: BadgePosition.topEnd(top: -12, end: -20),
+        padding: EdgeInsets.all(5),
+        badgeContent: Text(
+          '3',
+          style: TextStyle(
+              color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+        child: Text(
+          'Looking For',
+        ),
+      ),
+    ),
+    Tab(
+      icon: Badge(
+        shape: BadgeShape.circle,
+        // borderRadius: BorderRadius.circular(100),
+        position: BadgePosition.topEnd(top: -12, end: -20),
+        padding: EdgeInsets.all(5),
+        badgeContent: Text(
+          '3',
+          style: TextStyle(
+              color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+        child: Text(
+          'inbox',
+        ),
+      ),
+    ),
   ];
 
   @override
@@ -106,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage>
         print('tab3');
         break;
       case 3:
-        print('tab3');
+        print('tab4');
         break;
 
       default:
@@ -163,11 +213,7 @@ class _MyHomePageState extends State<MyHomePage>
       // ignore: prefer_const_literals_to_create_immutables
       body: TabBarView(controller: _controller, children: [
         Events(),
-        Column(
-          children: [
-            Center(child: Text(_selectedIndex.toString())),
-          ],
-        ),
+        LookingFor(),
         Column(
           children: [
             Center(child: Text(_selectedIndex.toString())),

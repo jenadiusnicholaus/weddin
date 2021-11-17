@@ -5,9 +5,9 @@ import 'package:weddin/utils/utils.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 class EventgroupInfo extends StatefulWidget {
-  final dynamic wedding;
+  final dynamic? eventgroup;
 
-  const EventgroupInfo({Key? key, required this.wedding}) : super(key: key);
+  const EventgroupInfo({Key? key, this.eventgroup}) : super(key: key);
 
   @override
   _GroupInfoState createState() => _GroupInfoState();
@@ -20,8 +20,24 @@ class _GroupInfoState extends State<EventgroupInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: InkWell(onTap: () => {}, child: Text(widget.wedding.name)),
-      ),
+          title: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage(widget.eventgroup.imageUrl),
+        ),
+        title: Text(widget.eventgroup.name),
+        subtitle: SizedBox(
+          height: 20,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: widget.eventgroup.member.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                  margin: EdgeInsets.only(right: 4),
+                  child: Text('${widget.eventgroup.member[index].name},'));
+            },
+          ),
+        ),
+      )),
       body: SingleChildScrollView(
         child: SizedBox(
           height: 700,
@@ -32,7 +48,7 @@ class _GroupInfoState extends State<EventgroupInfo> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(widget.wedding.imageUrl))),
+                        image: AssetImage(widget.eventgroup.imageUrl))),
                 width: double.infinity,
               ),
               Card(
@@ -55,7 +71,7 @@ class _GroupInfoState extends State<EventgroupInfo> {
                           ),
                         ),
                       ],
-                    )),
+                    ),),
               ),
               Card(
                 elevation: 1,

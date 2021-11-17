@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pretty_json/pretty_json.dart';
+import 'package:uuid/uuid.dart';
+import 'package:weddin/apiServices/eventgroupdata.dart';
+import 'package:weddin/modals/event_groups.dart';
+import 'package:weddin/utils/utils.dart';
+import 'package:uuid/uuid_util.dart';
 
 class CreateEventNext extends StatefulWidget {
   const CreateEventNext({Key? key}) : super(key: key);
@@ -8,6 +14,21 @@ class CreateEventNext extends StatefulWidget {
 }
 
 class _CreateEventNextState extends State<CreateEventNext> {
+  final TextEditingController? egroupNameController = TextEditingController();
+
+  final TextEditingController? egroupDesccontroller = TextEditingController();
+  final TextEditingController? singleController = TextEditingController();
+
+  final TextEditingController? doubleController = TextEditingController();
+  @override
+  void dispose() {
+    egroupNameController!.dispose();
+    egroupDesccontroller!.dispose();
+    singleController!.dispose();
+    doubleController!.dispose();
+    super.dispose();
+  }
+
   String? selectedEventCategory = 'Wedding';
   final List<String>? _locations = [
     'Wedding',
@@ -28,9 +49,10 @@ class _CreateEventNextState extends State<CreateEventNext> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TextField(
+              TextField(
+                controller: egroupNameController,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Eg: Jenadius\'s wedding',
                   prefixIcon: Icon(Icons.event_available_outlined),
                   border: OutlineInputBorder(),
@@ -39,11 +61,12 @@ class _CreateEventNextState extends State<CreateEventNext> {
               const SizedBox(
                 height: 10,
               ),
-              const TextField(
+              TextField(
+                controller: egroupDesccontroller,
                 maxLines: 4,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintText: 'Eg: Jenadius\'s wedding',
+                decoration: const InputDecoration(
+                  hintText: 'Enter Event goup description',
                   prefixIcon: Icon(Icons.description_outlined),
                   border: OutlineInputBorder(),
                 ),
@@ -107,11 +130,12 @@ class _CreateEventNextState extends State<CreateEventNext> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
-                                      Text('Single'),
+                                    children: [
+                                      const Text('Single'),
                                       TextField(
+                                        controller: singleController,
                                         keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Eg: 50000',
                                           prefixIcon: Icon(
                                               Icons.event_available_outlined),
@@ -131,11 +155,12 @@ class _CreateEventNextState extends State<CreateEventNext> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
-                                      Text('Double'),
+                                    children: [
+                                      const Text('Double'),
                                       TextField(
+                                        controller: doubleController,
                                         keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Eg: 100000',
                                           prefixIcon: Icon(
                                               Icons.event_available_outlined),
@@ -157,7 +182,39 @@ class _CreateEventNextState extends State<CreateEventNext> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          var members = await Utility.getEventMemberfromPrefs('event_member');
+
+          // print("""
+          // name : ${egroupNameController!.text}
+          // Desc : ${egroupDesccontroller!.text}
+          // group category: $selectedEventCategory
+          // single : ${singleController!.text}
+          // double : ${doubleController!.text}
+          // members:$members
+
+          // """);
+          var uuid = Uuid();
+          var id = uuid.v1();
+          Map<String, dynamic> json = {
+            'id': id,
+            'name': egroupNameController!.text,
+            'description': egroupDesccontroller!.text,
+            'image': null,
+            'members': members
+          };
+
+          Utility.saveOnShared(key: 'groupid', value: id);
+          Utility.saveOnShared(
+              key: 'groupname', value: egroupNameController!.text);
+          print(json);
+          Utility.saveOnShared(
+              key: 'groupdesc', value: egroupDesccontroller!.text);
+          Utility.saveOnShared(
+              key: 'groupcategory', value: selectedEventCategory);
+
+          getData();
+        },
         child: const Icon(Icons.arrow_right),
       ),
     );

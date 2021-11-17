@@ -246,10 +246,7 @@ class _ContactListPageState extends State<ContactListPage>
       return const Center(child: Text('Permission denied'));
     }
     if (_contacts == null) {
-      return const Center(
-          child: CircularProgressIndicator(
-        value: 1,
-      ));
+      return const Center(child: CircularProgressIndicator());
     }
     return GroupedListView<Contact, String>(
       elements: _contacts!,
@@ -289,7 +286,7 @@ class _ContactListPageState extends State<ContactListPage>
               );
               postingList.add({
                 'id': contact.id,
-                'Phone': fullContact!.phones.first.normalizedNumber.toString(),
+                'Phone': fullContact!.phones.first.number.toString(),
                 'displayingname': contact.displayName
               });
               _phone = fullContact.phones.first.normalizedNumber.isNotEmpty
